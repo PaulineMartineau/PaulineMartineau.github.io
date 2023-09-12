@@ -4,8 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <h1>Bonjour</h1>
+    <div class="container">
+        <img class='computer' src="src/screen.jpg" alt="computer">
+        <div class="screen">
+            <div class="header">
+                <div class="col-left">
+                    <span>Pauline Martineau</span>
+                </div>
+                <div class="col-right">
+                    <span>Mar. 12 sep. à 18:43</span>
+                </div>
+            </div>
+            <div class="desktop">
+                <div class="col-left">
+                    <button class="btn-desktop" onclick="openModal('terminal')">
+                        <img src="src/terminal.svg" alt="img of terminal">
+                        <span>Terminal</span>
+                    </button>
+                </div>
+                <div class="col-right">
+                    <button class="btn-desktop" onclick="openModal('Infos')">
+                        <img src="src/directory.svg" alt="img of terminal">
+                        <span>Infos</span>
+                    </button>
+                    <button class="btn-desktop" onclick="openModal('Skills')">
+                        <img src="src/directory.svg" alt="img of terminal">
+                        <span>Skills</span>
+                    </button>
+                    <button class="btn-desktop" onclick="openModal('Experiences')">
+                        <img src="src/directory.svg" alt="img of terminal">
+                        <span>Experiences</span>
+                    </button><button class="btn-desktop" onclick="openModal('Formations')">
+                        <img src="src/directory.svg" alt="img of terminal">
+                        <span>Formation</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <div class="header">
+                <span class="close" id="closeModalBtn"></span>
+                <span class="reduce"></span>
+                <span class="full"></span>
+                <h3 id="title"></h3>
+            </div>
+            <div class="modal--container">
+                <form action="">
+                    pauline ~ 
+                    <input type="text" name="" id="cmd">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/modal.js"></script>
 </body>
 </html>
