@@ -1,145 +1,514 @@
-*{
+* {
     margin: 0;
-    font-family: 'Barlow', sans-serif;
+    font-family: 'Inconsolata', monospace;
+}
+
+p {
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    position: relative;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    /* avec l'ecran */
+    position: relative;
 }
-.computer{
+
+.computer {
     width: 80vw;
     height: auto;
     object-fit: cover;
 }
 
 .screen {
-    position: absolute;
-    width: 35.5%; /* Largeur de la div */
-    height: 38%; /* Hauteur de la div */
-    top: 42%; /* Position verticale au milieu de l'image */
-    left: 51.5%; /* Position horizontale au milieu de l'image */
-    transform: translate(-50%, -50%);
     background-image: url("../src/bg.jpg");
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
+    /* Full screen */
+    /* width: 100vw;
+    height: 100vh; */
+    /* Avec l'écran */
+    position: absolute;
+    width: 35.5%;
+    height: 38%;
+    top: 42%;
+    left: 51.5%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
-.header{
-    height: 7%;
-    display: grid; /* Utilise Grid Layout pour disposer les colonnes */
-    grid-template-columns: repeat(2, 1fr); /* Crée deux colonnes de largeur égale */
-    grid-gap: 10px; /* Espacement entre les colonnes (facultatif) */
+
+/* Banner header */
+.banner {
+    width: 100%;
+    /* full screen */
+    /* height: 4vh; */
+
+    /* avec ecran */
+    height: 3vh;
+
     background-color: rgba(163, 146, 135, 0.485);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 50;
+}
+
+.banner .bar {
+    margin: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.banner .bar div {
+    margin: 0 15px;
+    font-size: large;
+    font-weight: bold;
 }
 
 .desktop {
-    height: 80%;
-    display: grid; /* Utilise Grid Layout pour disposer les colonnes */
-    grid-template-columns: repeat(2, 1fr); /* Crée deux colonnes de largeur égale */
-    grid-gap: 10px; /* Espacement entre les colonnes (facultatif) */
-    padding-top: 5%;
+    width: 100%;
+    flex: 1;
 }
 
-.col-left, .col-right {
-    padding: 1px 5px;
+.lock {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    /* display: none; */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icons sur l'ecran */
+.unlock {
+    width: 100%;
+    height: 80vh;
+    display: none;
+    gap: 40px 40px;
+    padding-top: 30px;
+}
+
+.desktopIcon {
+    width: 90px;
+    height: 110px;
+    margin-right: 25px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.desktopIcon img{
+    width: 70px;
+    height: 70px;
+}
+
+
+/* Dock */
+.dock {
+    position: fixed;
+    min-width: 15%;
+    max-width: 50%;
+    height: 6%;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(163, 146, 135, 0.485);
+    border-radius: 15px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    z-index: 4 !important;
+
+    /* Avec l'écran */
+    display: none;
+
+}
+
+.dock__icons {
+    margin: 0 10px;
+    width: 40px;
+    height: 40px;
+    /* background-color: rgba(163, 146, 135, 1); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border-radius: 10px; */
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.5s;
+}
+
+.dock__icons img{
+    width: 100%;
+    height: 100%;
+}
+
+.open {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background-color: white;
+    transform: translateY(500%);
+}
+
+.dock__icons::before:hover {
+    transform: scale(0);
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    top: -90%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333333b7;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: small;
+}
+
+.dock__icons:hover {
+    transform: scale(1.5) translateY(-10%);
+}
+
+.dock__icons:hover .tooltip {
+    display: block;
+}
+
+.appli {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+}
+
+.trash {
+    height: 50%;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trash::before {
+    content: '';
+    width: 0.5px;
+    height: 110%;
+    background-color: #6b5757;
+    margin-right: 15px;
+}
+
+/* Modales */
+.modal {
+    display: none;
+    position: fixed;
+    top: 8%;
+    left: 10%;
+    width: 80%;
+    height: 83%;
+    z-index: 2;
+}
+
+.minimized {
+    animation: minimizeToDockAnimation 0.5s ease-in-out;
+}
+
+@keyframes minimizeToDockAnimation {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(0, 100%) scale(0.1);
+        opacity: 0;
+    }
+}
+
+.modal-container {
+    background-color: rgba(142, 128, 128, 0.5);
+    /* Fond semi-transparent */
+    /* margin: 5% auto; */
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
 }
 
-.col-left{
-    align-self: flex-end;
-    justify-self: start;
-}
-
-.col-right{
-    align-self: flex-start;
-    justify-self: end;
-}
-
-.btn-desktop {
-    background-color: transparent; /* Couleur de fond du bouton */
-    border: none; /* Supprime la bordure */
-    margin: 7px;
-    cursor: pointer; /* Curseur pointer au survol */
-    display: flex; /* Permet au contenu du bouton de s'aligner */
-    flex-direction: column;
-    align-items: center; /* Centre le contenu verticalement */
-    justify-content: center; /* Centre le contenu horizontalement */
-    outline: none; /* Supprime la bordure de focus */
-}
-
-.btn-desktop img {
-    width: 24px; /* Ajustez la largeur de l'image SVG selon vos besoins */
-    height: 24px; /* Ajustez la hauteur de l'image SVG selon vos besoins */
-    margin-right: 2px; /* Marge à droite de l'image pour l'espacement */
-}
-
-.modal {
-    display: none; /* Par défaut, la modal est cachée */
-    position: fixed;
-    top: 0;
-    left: 0%;
+.modal-container .header {
     width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.modal-content {
-    background-color: rgba(142, 128, 128, 0.9); /* Fond semi-transparent */
-    margin: 5% auto;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    width: 80%;
-    height: 83%;
-    text-align: center;
-    position: relative;
-}
-
-.modal-content .header{
-    width: 100%;
-    height: 5%;
+    height: 30px;
     display: flex;
     background-color: rgba(142, 128, 128, 0.9);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
-.close, .reduce, .full {
+
+.close,
+.reduce,
+.resize {
     cursor: pointer;
     border-radius: 50%;
+    margin-right: 10px;
     height: 12px;
     width: 12px;
 }
-.close{
+
+.close {
     background-color: red;
     margin-left: 15px;
 }
-.reduce{
+
+.reduce {
     background-color: yellow;
 }
-.full{
+
+.resize {
     background-color: rgb(57, 203, 57);
 }
 
-.modal--container{
+.modal-content {
     width: 100%;
-    height: 95%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Terminal */
+.modal-content #terminal,
+#output {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 5px;
+}
+
+#invit {
+    margin-left: 5px;
+}
+
+.cmd-line {
+    display: flex;
+    width: 100%;
+}
+
+
+.cmd-line input[type="text"] {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: medium;
+}
+
+/* Memory */
+.memory {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20%, 2fr));
+    gap: 5%;
+    max-width: 80%;
+    max-height: 80%;
+    margin: auto;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.box-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+
+}
+
+.box-card.flipped {
+    transform: rotateY(180deg);
+    transition: transform 1s;
+}
+
+.front,
+.back {
+    width: 80%;
+    height: 100%;
+    border-radius: 5px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+}
+
+.front {
+    background-color: #4f475e;
+}
+
+.back {
+    background-color: #9388a7;
+    transform: rotateY(180deg);
+
+}
+
+.back img {
+    width: 30%;
+    height: auto;
+}
+
+.pdf-container {
+    width: 100%;
+    height: 100%; /* Hauteur de la div */
+    overflow: hidden;
+}
+
+#pdf-viewer{
+    width : 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.zoom {
+    cursor: pointer;
+    position: fixed;
+    right: 25px;
+}
+
+.in{
+    bottom: 50px;
+}
+
+.out{
+    bottom: 25px;
+}
+
+
+
+.txt-viewer{
+    font-size: 15px;
+}
+
+.txt-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+
+.finder{
+    display: flex;
+    width: 100%;
+    flex: 1;
+    /* background-color: red; */
+    flex-direction: column;
+}
+
+.headerFinder{
+    width: 100%;
+    height: 4vh ;
+    background-color: pink ;
+    display: flex;
+    align-items: center;
+}
+
+.contentFinder{
+    width: 100%;
+    flex: 1;
     display: flex;
 }
 
-.modal--container form {
+.partFinder{
+    min-width: 10%;
+    width: 50%;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    align-items: start;
+    overflow-y: scroll;
+    flex-wrap: wrap;
 }
 
-.modal--container input[type="text"] {
-    flex: 1; /* Occupe le reste de la largeur disponible */
-    border: none; /* Supprime la bordure */
-    background: transparent; /* Fond transparent */
-    outline: none; /* Supprime la bordure de focus */
+.partFinder.listView{
+    flex-direction: column;
+}
+
+.elemFinder{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 10px;
+}
+
+
+.listView .elemFinder{
+    padding-left: 15px;
+}
+
+
+.iconView .elemFinder{
+    flex-direction: column;
+    justify-content: center;
+    flex: 0 0 150px ;
+    gap: 5px 0;
+    margin-top: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.iconView .elemFinder div{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+
+.listView #iconList{
+    width: 20px;
+    height: auto;
+    margin-right: 15px;
+}
+.iconView #iconList{
+    width: auto;
+    height: 50px;
+}
+.iconView .btnRedir{
+    display: none;
 }
