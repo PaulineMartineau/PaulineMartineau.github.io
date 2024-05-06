@@ -102,7 +102,6 @@ class Finder {
         return finder;
     }
 
-
 }
 
 const directory = {

@@ -19,27 +19,16 @@ p {
     position: relative;
 }
 
-.computer {
-    width: 80vw;
-    height: auto;
-    object-fit: cover;
-}
+
 
 .screen {
-    background-image: url("../src/bg.jpg");
+    background-image: url("../src/bg4.jpeg");
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
-    /* Full screen */
-    /* width: 100vw;
-    height: 100vh; */
-    /* Avec l'écran */
+    width: 100vw;
+    height: 100vh;
     position: absolute;
-    width: 35.5%;
-    height: 38%;
-    top: 42%;
-    left: 51.5%;
-    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -48,12 +37,7 @@ p {
 /* Banner header */
 .banner {
     width: 100%;
-    /* full screen */
-    /* height: 4vh; */
-
-    /* avec ecran */
-    height: 3vh;
-
+    height: 35px;
     background-color: rgba(163, 146, 135, 0.485);
     display: flex;
     align-items: center;
@@ -82,9 +66,88 @@ p {
     width: 100%;
     height: 80%;
     display: flex;
+    flex-direction: column;
     /* display: none; */
     align-items: center;
     justify-content: center;
+    gap: 40px;
+
+}
+
+/* Password */
+
+.password{
+    font-size: larger;
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: rgba(197, 186, 179, 0.5);; /* Couleur d'arrière-plan transparente */
+    backdrop-filter: blur(5px);
+    padding: 8px 8px 8px 15px;
+    color: #9388a7;
+    border-radius: 20px;
+}
+
+.password:focus{
+    border-color: transparent;
+    outline: none;
+}
+
+.username{
+    font-size: x-large;
+    font-weight: bold;
+    color: #645d70;
+
+}
+.caps-lock {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-image: url('../src/png/caps-locked.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    display: none; /* Caché par défaut */
+}
+.enter {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-image: url('../src/png/enter.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    display: none;
+    cursor: pointer;
+}
+
+@keyframes vibrateAnimation {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-5px, 0); }
+    40% { transform: translate(5px, 0); }
+    60% { transform: translate(-5px, 0); }
+    80% { transform: translate(5px, 0); }
+    100% { transform: translate(0, 0); }
+}
+
+/* Classe pour appliquer l'animation */
+.vibrating {
+    animation: vibrateAnimation 0.5s ease infinite;
+}
+
+.profile{
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    background-image: url("../src/profile.jpg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
 }
 
 /* Icons sur l'ecran */
@@ -438,7 +501,6 @@ p {
     display: flex;
     width: 100%;
     flex: 1;
-    /* background-color: red; */
     flex-direction: column;
 }
 

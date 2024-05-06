@@ -19,43 +19,67 @@ function updateDateTime() {
 
 updateDateTime();
 
+// Intervalle pour mettrea jour la date et l'heure
 setInterval(updateDateTime, 1000);
-
 
 // Unlock sreen
 const password = document.querySelector('.password');
 const lock = document.querySelector('.lock');
 const unlock = document.querySelector('.unlock');
 const dockEl = document.querySelector('.dock');
-const banner = document.querySelector('.banner');
 const screenDiv = document.querySelector('.screen');
 const computerImg = document.querySelector('.computer');
+const capsLockImage = document.querySelector('.caps-lock');
+const enter = document.querySelector(".enter")
 
 function changeScreen(){
     lock.style.display = 'none';
-
     unlock.style.display = 'flex';
     unlock.style.flexDirection = 'column';
     unlock.style.flexWrap = 'wrap-reverse';
     unlock.style.alignContent = 'flex-start';
-
-    computerImg.style.display = 'none'
-
     dockEl.style.display = 'flex';
-
-    banner.style.height = '4vh';
-
-    screenDiv.style.width = '100vw';
-    screenDiv.style.height = '100vh';
-    screenDiv.style.position = 'static';
-    screenDiv.style.top = '0';
-    screenDiv.style.left = '0';
-    screenDiv.style.transform = 'translate(0%, 0%)';
 }
 
-password.addEventListener('click', () =>{
-    changeScreen();
+
+
+password.addEventListener('keyup', function(event) {
+    const capsLockEnabled = event.getModifierState && event.getModifierState('CapsLock');
+
+    capsLockImage.style.right = password.value ? "30px" : "10px";
+    enter.style.display = password.value ? 'block' : 'none';
+
+    if (!capsLockEnabled)
+        capsLockImage.style.display = 'none';
+
+});
+
+
+password.addEventListener('keydown', function(event) {
+    const capsLockEnabled = event.getModifierState && event.getModifierState('CapsLock');
+
+    if (capsLockEnabled)
+        capsLockImage.style.display = 'block';
+    
+    if (event.key === 'Enter')
+        checkPassword(password);
+});
+
+enter.addEventListener("click", () => {
+    checkPassword(password);
 })
+
+function checkPassword(password){
+    if (password.value == "PaulineM")
+        setTimeout(changeScreen, 1000);
+    else{
+        password.select()
+        password.classList.add("vibrating");
+        setTimeout(function() {
+            password.classList.remove('vibrating');
+        }, 500);
+    }
+}
 
 //Listener pour les icons du bureau
 manage.modale.addListener();
