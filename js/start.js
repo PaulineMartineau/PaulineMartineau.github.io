@@ -30,7 +30,8 @@ const dockEl = document.querySelector('.dock');
 const screenDiv = document.querySelector('.screen');
 const computerImg = document.querySelector('.computer');
 const capsLockImage = document.querySelector('.caps-lock');
-const enter = document.querySelector(".enter")
+const enter = document.querySelector(".enter");
+const postIt = document.querySelector(".post-it");
 
 function changeScreen(){
     lock.style.display = 'none';
@@ -39,7 +40,18 @@ function changeScreen(){
     unlock.style.flexWrap = 'wrap-reverse';
     unlock.style.alignContent = 'flex-start';
     dockEl.style.display = 'flex';
+    setTimeout( () => {
+        postIt.classList.add("removePostIt");
+        setTimeout( () => {
+            postIt.style.display = 'none';
+        }, 1000);
+    }, 2000);
+    
 }
+
+
+
+
 
 
 

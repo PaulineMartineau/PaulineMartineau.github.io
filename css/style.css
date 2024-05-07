@@ -16,12 +16,8 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    /* avec l'ecran */
     position: relative;
 }
-
-
 
 .screen {
     background-image: url("../src/bg4.jpeg");
@@ -81,37 +77,40 @@ p {
     right: 200px;
     top: 15px;
     z-index: 50;
-    /* animation: wrapper 6s ease-in-out infinite; */
-
-    /* transform: translateZ(-10px) rotateX(60deg) rotateZ(29deg) rotateY(0deg); */
     transform-style: preserve-3d;
     transform-origin: 0 0 0;
-    /* transform: perspective(800px) rotateY(0deg);  */
+    transform: perspective(800px) rotateY(0deg);
     transition: transform 0.5s ease-in-out;
 }
 
-
-
 .post-it:hover {
-    /* Juste pour le hover */
     transform: perspective(800px) rotateX(10deg);
-
-
-    
-    /* pour le rotate et disparission */
-    /* transform: perspective(800px) rotateX(350deg) rotateY(40deg); */
+    transition: transform 0.8s ease-in-out;
 }
 
 .post-it:hover .note{
-    /* Juste pour le hover */
     box-shadow: 0px 1px 10px rgba(0,0,0,0.30);
-    /* pour le rotate et disparission */
-
 }
 
+.removePostIt{
+    animation: removePostIt 2s ease;
+}
 
-
-
+@keyframes removePostIt {
+    0%{
+        transform: perspective(800px) rotateX(0deg);
+    }
+    60%{
+        transform: perspective(800px) rotateX(100deg);
+    }
+    80%{
+        transform: perspective(800px) rotateX(150deg);
+    }
+    100%{
+        transform: perspective(800px) rotateX(200deg);
+        opacity: 0;
+    }
+}
 
 .note { 
     -webkit-box-shadow: #DDD 0px 1px 2px;
@@ -137,22 +136,22 @@ p {
 
 
     }
-    .note:after {
-      display: block;
-      content: "";
-      position: absolute; 
-      width: 110px;
-      height: 30px;
-      top: -21px;
-      left: 30%;    
-      border: 1px solid #fff;
-      background: rgba(254, 254, 254, .6);
-      -webkit-box-shadow: 0px 0 3px rgba(0,0,0,0.1);
-      -moz-box-shadow: 0px 0 3px rgba(0,0,0,0.1);
-      box-shadow: 0px 0 3px rgba(0,0,0,0.1);
-    }
-    
 
+.note:after {
+    display: block;
+    content: "";
+    position: absolute; 
+    width: 110px;
+    height: 30px;
+    top: -21px;
+    left: 30%;    
+    border: 1px solid #fff;
+    background: rgba(254, 254, 254, .6);
+    -webkit-box-shadow: 0px 0 3px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0 3px rgba(0,0,0,0.1);
+    box-shadow: 0px 0 3px rgba(0,0,0,0.1);
+}
+    
 
 /* Password */
 
