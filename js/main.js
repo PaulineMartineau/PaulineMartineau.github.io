@@ -56,3 +56,4 @@ function loadScript(src) {
       console.error('Une erreur s\'est produite lors du chargement des fichiers JavaScript :', error);
     });
   
+

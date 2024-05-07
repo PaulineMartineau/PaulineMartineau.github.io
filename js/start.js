@@ -91,3 +91,5 @@ icons.forEach(icon => {
         manage.modale.open(icon);
     });
 });
+
+

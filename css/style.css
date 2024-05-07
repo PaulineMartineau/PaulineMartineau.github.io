@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Give+You+Glory|The+Girl+Next+Door|Gloria+Hallelujah|Indie+Flower);
+
 * {
     margin: 0;
     font-family: 'Inconsolata', monospace;
@@ -67,12 +69,90 @@ p {
     height: 80%;
     display: flex;
     flex-direction: column;
-    /* display: none; */
     align-items: center;
     justify-content: center;
     gap: 40px;
+}
+
+
+
+.post-it{
+    position: fixed;
+    right: 200px;
+    top: 15px;
+    z-index: 50;
+    /* animation: wrapper 6s ease-in-out infinite; */
+
+    /* transform: translateZ(-10px) rotateX(60deg) rotateZ(29deg) rotateY(0deg); */
+    transform-style: preserve-3d;
+    transform-origin: 0 0 0;
+    /* transform: perspective(800px) rotateY(0deg);  */
+    transition: transform 0.5s ease-in-out;
+}
+
+
+
+.post-it:hover {
+    /* Juste pour le hover */
+    transform: perspective(800px) rotateX(10deg);
+
+
+    
+    /* pour le rotate et disparission */
+    /* transform: perspective(800px) rotateX(350deg) rotateY(40deg); */
+}
+
+.post-it:hover .note{
+    /* Juste pour le hover */
+    box-shadow: 0px 1px 10px rgba(0,0,0,0.30);
+    /* pour le rotate et disparission */
 
 }
+
+
+
+
+
+.note { 
+    -webkit-box-shadow: #DDD 0px 1px 2px;
+      position: relative;
+      color: #47576B;
+
+      background-color: #F4F39E;
+      border-color: #DEE184;
+      text-align: center;
+      margin: 1.5em auto;
+      padding: 1.5em 1em;
+      -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+      -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+      box-shadow: 0px 1px 3px rgba(0,0,0,0.25);
+      -webkit-transform: rotate(2deg);
+      -moz-transform: rotate(2deg);
+      -o-transform: rotate(2deg);
+      -ms-transform: rotate(2deg);
+      transform: rotate(2deg);
+      width: 250px;
+      font-family: 'The Girl Next Door', cursive; 
+      font-size: 1em;
+
+
+    }
+    .note:after {
+      display: block;
+      content: "";
+      position: absolute; 
+      width: 110px;
+      height: 30px;
+      top: -21px;
+      left: 30%;    
+      border: 1px solid #fff;
+      background: rgba(254, 254, 254, .6);
+      -webkit-box-shadow: 0px 0 3px rgba(0,0,0,0.1);
+      -moz-box-shadow: 0px 0 3px rgba(0,0,0,0.1);
+      box-shadow: 0px 0 3px rgba(0,0,0,0.1);
+    }
+    
+
 
 /* Password */
 
