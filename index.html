@@ -20,7 +20,7 @@
     
             <div class="banner">
                 <div class="bar">
-                    <div><i class="fa-solid fa-carrot"></i></div>
+                    <div id="carrot"><i class="fa-solid fa-carrot"></i></div>
                     <div>Computer</div>
                 </div>
                 
@@ -28,6 +28,17 @@
                     <div id="date"></div>
                 </div>
                 
+            </div>
+
+            <div class="menu">
+                <div class="item">A propos de cet ordinateur</div>
+                <div class="item">Préférences systeme</div>
+                <div class="separation"></div>
+                <div class="item">App store</div>
+                <div class="separation"></div>
+                <div id="lock-screen" onclick="lockScreen()" class="item">Vérouiller l'ecran</div>
+                <div onclick="window.location.reload()" class="item">Fermer la session Pauline</div>
+
             </div>
 
             <div class="post-it">
@@ -42,16 +53,19 @@
             <div class="desktop">
                 
                 <div class="lock">
-                    <div class="profile"></div>
-                    <div class="username">Pauline</div>
-                    <!-- <input class="password" type="password" placeholder="Mot de passe"> -->
-                    <div class="input-container" style="position: relative;">
-                        <input class="password" type="password" placeholder="Mot de passe">
-                        <div class="caps-lock"></div>
-                        <div class="enter"></div>
-
+                    <div class="top">
+                        <div class="profile"></div>
+                        <div class="username">Pauline</div>
+                        <div class="input-container" style="position: relative;">
+                            <input class="password" type="password" placeholder="Mot de passe">
+                            <div class="caps-lock"></div>
+                            <div class="enter"></div>
+                        </div>
                     </div>
-                    <!-- <button class="password">Coucou</button> -->
+                    <div class="bottom">
+                        <img src="src/png/cancel.png" alt="cancel" class="cancel-image">
+                        <div class="cancel-text">Annuler</div>
+                    </div>
                 </div>
                 <div class="unlock">
                     <div class="btn desktopIcon" data-app="doc_officiels" id="directory">
