@@ -47,6 +47,15 @@ const enter = document.querySelector(".enter");
 const postIt = document.querySelector(".post-it");
 const cancel = document.querySelector(".bottom");
 
+changeScreen()
+const prefSysteme = document.querySelectorAll('.pref');
+prefSysteme.forEach(bouton => {
+        const appName = bouton.getAttribute('data-app');
+        const id = bouton.getAttribute('id');
+        const icon = getIcon(appName,id, "system");
+        manage.modale.open(icon);
+});
+
 function changeScreen() {
   password.value = "";
   lock.style.display = "none";
@@ -87,7 +96,7 @@ enter.addEventListener("click", () => {
 });
 
 function checkPassword(password) {
-  if (password.value == "PaulineM") setTimeout(changeScreen, 1000);
+  if (password.value == "Pauline_M") setTimeout(changeScreen, 1000);
   else {
     password.select();
     password.classList.add("vibrating");
@@ -139,4 +148,9 @@ function lockScreen() {
   lock.style.display = "flex";
   unlock.style.display = "none";
   dockEl.style.display = "none";
+}
+
+
+function prefSystem(elem){
+    // manage.modale.open(elem);
 }

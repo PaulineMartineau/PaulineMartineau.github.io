@@ -76,6 +76,9 @@ class Modal {
             case (this.appName == 'finder'):
                 appDiv = openFinder('root');
                 break;
+            case (this.appName == 'Préférences Système'):
+                appDiv = openSystem("pref");
+                break;
             default:
                 const contentDiv = document.createElement('div');
                 contentDiv.textContent = this.content;
@@ -180,7 +183,6 @@ function openPdf(src) {
     return pdfDiv;
 }
 
-
 function zoomInFct() {
     var textViewerList = document.querySelectorAll('.txt-viewer');
 
@@ -192,7 +194,6 @@ function zoomInFct() {
     });
 }
 
-
 // Fonction pour diminuer la taille de police
 function zoomOutFct() {
     var textViewerList = document.querySelectorAll('.txt-viewer');
@@ -203,8 +204,6 @@ function zoomOutFct() {
         textViewer.style.fontSize = newSize;
     });
 }
-
-
 
 function openTxt(src) {
     const txtDiv = document.createElement('div');
@@ -253,4 +252,8 @@ function openFinder(name) {
     return finderDiv.instance;
 }
 
+function openSystem(type){
+    const systemDiv = new PreferenceSystem(type);
 
+    return systemDiv.instance;
+}

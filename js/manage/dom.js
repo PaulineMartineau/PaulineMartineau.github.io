@@ -6,11 +6,10 @@ const dom = {
 }
 
 function getDomToCreateModale(icon) {
-    console.log(icon);
     return {
         appName : icon.getAttribute('data-app'),
         id : icon.getAttribute('id'),
-        title : this.appName == 'terminal' ? "pauline - pauline-martineau@computer --- zsh" : this.appName,
+        title : icon.getAttribute('data-app') == 'terminal' ? "pauline - pauline-martineau@computer --- zsh" : icon.getAttribute('data-app'),
         modale : '',
     }
 }

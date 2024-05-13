@@ -219,12 +219,21 @@ const manage = {
         },
         addListener() {
             const btn = document.querySelectorAll('.btn');
+            const prefSystem = document.querySelectorAll('.pref');
 
             btn.forEach(bouton => {
                 bouton.addEventListener('dblclick',() => {
                     const appName = bouton.getAttribute('data-app');
                     const id = bouton.getAttribute('id');
                     const icon = getIcon(appName,id);
+                    manage.modale.open(icon);
+                })
+            });
+            prefSystem.forEach(bouton => {
+                bouton.addEventListener('click',() => {
+                    const appName = bouton.getAttribute('data-app');
+                    const id = bouton.getAttribute('id');
+                    const icon = getIcon(appName,id, "system");
                     manage.modale.open(icon);
                 })
             });
@@ -333,3 +342,5 @@ const manage = {
         }
     }
 }
+
+

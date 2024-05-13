@@ -27,17 +27,10 @@ function loadScript(src) {
     './js/manage/utilsIconDock.js',
     './js/manage/utilsTerminal.js',
 
-
-
-
-
-
-
-
-
     './js/class/modalClass.js',
     './js/class/iconClass.js',
     './js/class/finderClass.js',
+    './js/class/systemClass.js',
 
     './js/start.js',
   ];
@@ -50,10 +43,8 @@ function loadScript(src) {
   Promise.all(loadPromises)
     .then(() => {
       console.log('Tous les fichiers JavaScript sont chargés avec succès.');
-      // Votre code ici, une fois que tous les fichiers sont chargés.
     })
     .catch(error => {
       console.error('Une erreur s\'est produite lors du chargement des fichiers JavaScript :', error);
     });
   
-

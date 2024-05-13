@@ -1,5 +1,7 @@
-function getElement(appName) {
+function getElement(appName, system = null) {
     var elem;
+    if (system)
+        return paths.elements.find(element => element.name === "game");
     switch (appName.split('.')[1]) {
         case 'txt':
             elem = paths.elements.find(element => element.name === "txt");
@@ -20,14 +22,14 @@ function getElement(appName) {
 }
 
 class IconDock {
-    constructor(appName, id) {
+    constructor(appName, id, system) {
         this.appName = appName;
         this.id = id;
         this.tooltipText = appName;
-        this.instance = this.createIcon();
+        this.instance = this.createIcon(system);
     }
 
-    createIcon() {
+    createIcon(system) {
         const iconsList = document.querySelectorAll('.btn-desktop');
         const dataAppValues = Array.from(iconsList).map(element => element.getAttribute('data-app'));
 
@@ -39,7 +41,7 @@ class IconDock {
         iconDiv.setAttribute('data-app',this.appName);
         iconDiv.setAttribute('id',this.id);
 
-        const element = getElement(this.appName);
+        const element = getElement(this.appName, system);
         const imgElement = document.createElement('img');
         imgElement.src = element.path;
         imgElement.alt = element.name;
@@ -94,6 +96,3 @@ class IconFinderList {
         return object;
     }
 }
-
-
-

@@ -111,7 +111,6 @@ const directory = {
         const partFinder = modale.querySelector('.partFinder');
 
         modeList.addEventListener('click',() => {
-            console.log('iciiiii')
             if (!partFinder.className.includes('listView')) {
                 partFinder.classList.add("listView");
                 partFinder.classList.remove("iconView");
