@@ -210,7 +210,6 @@ const manage = {
                     break;
                 case (modaleDom.id == 'directory'):
                 case (modaleDom.appName == 'finder'):
-                    directory.manageDirectory(modaleDom.modale);
                     manage.modale.addListener();
                     break;
                 default:
@@ -218,7 +217,9 @@ const manage = {
             }
         },
         addListener() {
-            const btn = document.querySelectorAll('.btn');
+            const allbtn = document.querySelectorAll('.btn');
+            const btn = Array.from(allbtn).filter(el =>!el.classList.contains('elemFinder'));
+
             const prefSystem = document.querySelectorAll('.pref');
 
             btn.forEach(bouton => {

@@ -21,16 +21,17 @@ function loadScript(src) {
     './js/data/computer.js',
     './js/data/cardMemory.js',
     './js/data/pathSvgIcons.js',
-
+    
+    './js/class/modalClass.js',
+    './js/class/iconClass.js',
+    './js/class/finderClass.js',
+    './js/class/systemClass.js',
+    
     './js/manage/manage.js',
     './js/manage/dom.js',
     './js/manage/utilsIconDock.js',
     './js/manage/utilsTerminal.js',
 
-    './js/class/modalClass.js',
-    './js/class/iconClass.js',
-    './js/class/finderClass.js',
-    './js/class/systemClass.js',
 
     './js/start.js',
   ];

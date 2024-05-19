@@ -12,3 +12,4 @@ function getIcon(appName,id, system = null) {
     dock_appli.appendChild(icon.instance);
     return icon.instance;
 }
+

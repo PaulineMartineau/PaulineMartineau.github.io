@@ -3,7 +3,7 @@ const computer = {
     elements: [
         {
             type: "directory",
-            name: "root",
+            name: "Bureau",
             elements: [
                 {
                     type: "file",

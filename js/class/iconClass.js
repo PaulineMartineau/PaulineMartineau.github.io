@@ -1,7 +1,7 @@
 function getElement(appName, system = null) {
     var elem;
     if (system)
-        return paths.elements.find(element => element.name === "game");
+        return paths.elements.find(element => element.name === "settings");
     switch (appName.split('.')[1]) {
         case 'txt':
             elem = paths.elements.find(element => element.name === "txt");
@@ -75,6 +75,7 @@ class IconFinderList {
         const object = document.createElement('div');
         object.classList.add('elemFinder', 'btn');
         object.setAttribute('data-app', this.name)
+        object.id = this.type;
 
         const img = document.createElement('img');
         img.src = this.src;
@@ -88,7 +89,7 @@ class IconFinderList {
         object.appendChild(name);
 
         if (this.data.name == 'folder'){
-            const btnOpen = document.createElement('button');
+            const btnOpen = document.createElement('div');
             btnOpen.classList.add('btnRedir');
             btnOpen.textContent = '>';
             object.appendChild(btnOpen);

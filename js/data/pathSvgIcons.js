@@ -20,5 +20,9 @@ const paths = {
             name: "executable",
             path: "../src/svg/exec.svg",
         },
+        {
+            name: "settings",
+            path: "../src/png/settings.png",
+        },
     ]
 }

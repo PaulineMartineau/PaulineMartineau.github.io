@@ -16,6 +16,10 @@ p {
   padding: 0;
 }
 
+/* body{
+	user-select: auto;
+} */
+
 /****************************************************************************
  * FIN GENERAL CSS
  ***************************************************************************/
@@ -59,22 +63,44 @@ p {
   z-index: 50;
 }
 
-.banner .bar {
+.banner .barleft {
   margin: 20px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.banner .bar div {
+.banner .barleft div {
   margin: 0 15px;
   font-size: large;
   font-weight: bold;
   padding: 5px 10px;
   border-radius: 5px;
+  height: 100%;
 }
 
-.banner .bar #carrot:hover {
+.banner .barleft #carrot:hover {
   background-color: rgb(142, 128, 128);
+}
+
+.banner .barright{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 20px;
+	gap: 15px;
+	height: 100%;
+  }
+
+  .banner .barright div{
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+
+#battery{
+	width: 25px;
 }
 
 /* Menu (system preference) */
@@ -169,7 +195,7 @@ p {
   width: 100px;
   height: 100px;
   border-radius: 100px;
-  background-image: url("../src/profile.jpg");
+  background-image: url("../src/jpg/profil6.jpg");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
@@ -750,41 +776,86 @@ p {
 
 .headerFinder {
   width: 100%;
-  height: 4vh;
-  background-color: pink;
+  height: 50px;
+  background-color: rgba(142, 128, 128, 0.7);
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  gap: 100px;
 }
 
 .contentFinder {
   width: 100%;
   flex: 1;
   display: flex;
+  overflow-x: auto;
 }
 
 .partFinder {
-  min-width: 10%;
-  width: 50%;
   height: 100%;
   display: flex;
   align-items: start;
-  overflow-y: scroll;
   flex-wrap: wrap;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.partFinder:nth-child(1){
+	width: 60%;
+}
+
+
+
+.partFinder:after{
+	content: "𐁖";
+	width: 15px;
+	height: 100%;
+	background-color: rgb(182, 181, 181);
+	right: 0;
+	position: absolute;
+	display: flex;
+	flex-direction: column-reverse;
+	cursor: pointer;
 }
 
 .partFinder.listView {
   flex-direction: column;
+  gap: 10px;
 }
 
 .elemFinder {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding-top: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.elemFinder.active{
+	/* background-color: ; */
+	background-color: rgb(185, 187, 189);
+  border-radius: 5px;
 }
 
 .listView .elemFinder {
   padding-left: 15px;
+  position: relative;
+  width:90%;
+}
+
+.listView .elemFinder::after{
+	content: "";
+	width: 100%;
+	height: 2px;
+	background-color: rgba(105, 101, 101, 0.5);
+	position: absolute;
+	bottom: -10px;
+}
+
+.listView .elemFinder::before{
+	content: "";
+	position: absolute;
+	right: 0;
 }
 
 .iconView .elemFinder {
@@ -815,6 +886,65 @@ p {
 .iconView .btnRedir {
   display: none;
 }
+
+.listView .btnRedir {
+	position: absolute;
+	right: 5px;
+	display: block;
+}
+
+.viewSection, .navigation{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	gap: 10px;
+}
+.modeList, .modeIcon{
+  width: 30px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.modeList.active, .modeIcon.active{
+	background: rgb(114, 104, 104);
+	border-radius: 5px;
+}
+
+.modeList div, .modeIcon div{
+	width: 100%;
+	height: 100%;
+	background-image: url("../src/png/list.png");
+	background-size: 100% 100%;
+}
+
+.navigation .previous, .navigation .next{
+	background-color: transparent;
+	border: none;
+	font-size: larger;
+	cursor: pointer;
+}
+
+.navigation .previous{
+	margin-left: 10px;
+}
+
+.previewFinder{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5%;
+}
+
+.previewFinder img{
+	width: 25%;
+}
+
 
 /****************************************************************************
  * FIN FINDER

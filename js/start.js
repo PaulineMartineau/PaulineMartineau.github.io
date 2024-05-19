@@ -32,8 +32,52 @@ function updateDateTime() {
 
 updateDateTime();
 
+function updateBatterie(){
+
+  navigator.getBattery().then(function(battery) {
+    function updateBatteryStatus() {
+        console.log("Battery percentage: " + battery.level * 100 + "%");
+        console.log("Is charging: " + battery.charging);
+    }
+  
+    updateBatteryStatus();
+  
+    battery.addEventListener('levelchange', updateBatteryStatus);
+    battery.addEventListener('chargingchange', updateBatteryStatus);
+  });
+  
+
+}
+
+
+navigator.getBattery().then(function(battery) {
+  const batteryImg = document.querySelector("#battery");
+
+  function updateBatteryStatus() {
+    console.log(battery.level * 100);
+    if (battery.charging) {
+      batteryImg.src = "../src/svg/battery-bolt.svg";
+      return;
+    }
+    if (battery.level * 100 <= 10)
+      batteryImg.src = "../src/svg/battery-empty.svg";
+    else if (battery.level * 100 <= 35)
+      batteryImg.src = "../src/svg/battery-low.svg";
+    else if (battery.level * 100 <= 80)
+      batteryImg.src = "../src/svg/battery-mid.svg";
+    else
+      batteryImg.src = "../src/svg/battery-full.svg";
+  }
+
+  updateBatteryStatus();
+
+  battery.addEventListener('levelchange', updateBatteryStatus);
+  battery.addEventListener('chargingchange', updateBatteryStatus);
+});
+
 // Intervalle pour mettrea jour la date et l'heure
 setInterval(updateDateTime, 1000);
+
 
 // Unlock sreen
 const password = document.querySelector(".password");
@@ -47,14 +91,14 @@ const enter = document.querySelector(".enter");
 const postIt = document.querySelector(".post-it");
 const cancel = document.querySelector(".bottom");
 
+//DEV MODE
 changeScreen()
-const prefSysteme = document.querySelectorAll('.pref');
-prefSysteme.forEach(bouton => {
-        const appName = bouton.getAttribute('data-app');
-        const id = bouton.getAttribute('id');
-        const icon = getIcon(appName,id, "system");
-        manage.modale.open(icon);
-});
+const finderPage = document.querySelector("[data-app='finder']");
+const appName = finderPage.getAttribute('data-app');
+const id = finderPage.getAttribute('id');
+const icon = getIcon(appName,id);
+manage.modale.open(icon);
+//DEV MODE
 
 function changeScreen() {
   password.value = "";
@@ -150,7 +194,3 @@ function lockScreen() {
   dockEl.style.display = "none";
 }
 
-
-function prefSystem(elem){
-    // manage.modale.open(elem);
-}
