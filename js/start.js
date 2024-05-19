@@ -32,24 +32,6 @@ function updateDateTime() {
 
 updateDateTime();
 
-function updateBatterie(){
-
-  navigator.getBattery().then(function(battery) {
-    function updateBatteryStatus() {
-        console.log("Battery percentage: " + battery.level * 100 + "%");
-        console.log("Is charging: " + battery.charging);
-    }
-  
-    updateBatteryStatus();
-  
-    battery.addEventListener('levelchange', updateBatteryStatus);
-    battery.addEventListener('chargingchange', updateBatteryStatus);
-  });
-  
-
-}
-
-
 navigator.getBattery().then(function(battery) {
   const batteryImg = document.querySelector("#battery");
 
