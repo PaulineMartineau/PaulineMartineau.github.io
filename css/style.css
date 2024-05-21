@@ -414,7 +414,7 @@ p {
   bottom: 1%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(163, 146, 135, 0.485);
+  background-color: rgba(163, 146, 135, 0.9);
   border-radius: 15px;
   align-items: center;
   justify-content: space-between;

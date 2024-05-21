@@ -1,51 +1,53 @@
 function loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+
+    script.onload = () => {
+      resolve();
+    };
+
+    script.onerror = () => {
+      reject(new Error(`Impossible de charger le fichier : ${src}`));
+    };
+
+    document.head.appendChild(script);
+  });
+}
+
+// Liste des fichiers JavaScript à charger
+const filesToLoad = [
+  './js/data/computer.js',
+  './js/data/cardMemory.js',
+  './js/data/pathSvgIcons.js',
   
-      script.onload = () => {
-        resolve();
-      };
+  './js/class/modalClass.js',
+  './js/class/iconClass.js',
+  './js/class/finderClass.js',
+  './js/class/systemClass.js',
   
-      script.onerror = () => {
-        reject(new Error(`Impossible de charger le fichier : ${src}`));
-      };
-  
-      document.head.appendChild(script);
-    });
+  './js/manage/manage.js',
+  './js/manage/dom.js',
+  './js/manage/utilsIconDock.js',
+  './js/manage/utilsTerminal.js',
+
+  './js/start.js',
+];
+
+// Charger les fichiers séquentiellement
+async function loadScriptsSequentially(files) {
+  for (const file of files) {
+    try {
+      await loadScript(file);
+    } catch (error) {
+      console.error(`Une erreur s'est produite lors du chargement du fichier ${file} :`, error);
+      throw error; // Arrêter le chargement en cas d'erreur
+    }
   }
-  
-  // Liste des fichiers JavaScript à charger
-  const filesToLoad = [
-    './js/data/computer.js',
-    './js/data/cardMemory.js',
-    './js/data/pathSvgIcons.js',
-    
-    './js/class/modalClass.js',
-    './js/class/iconClass.js',
-    './js/class/finderClass.js',
-    './js/class/systemClass.js',
-    
-    './js/manage/manage.js',
-    './js/manage/dom.js',
-    './js/manage/utilsIconDock.js',
-    './js/manage/utilsTerminal.js',
+  console.log('Tous les fichiers JavaScript sont chargés avec succès.');
+}
 
-
-    './js/start.js',
-  ];
-
-  
-  // Charger tous les fichiers en parallèle
-  const loadPromises = filesToLoad.map(file => loadScript(file));
-  
-  // Attendre que tous les fichiers soient chargés
-  Promise.all(loadPromises)
-    .then(() => {
-      console.log('Tous les fichiers JavaScript sont chargés avec succès.');
-    })
-    .catch(error => {
-      console.error('Une erreur s\'est produite lors du chargement des fichiers JavaScript :', error);
-    });
-  
+loadScriptsSequentially(filesToLoad).catch(error => {
+  console.error('Une erreur s\'est produite lors du chargement des fichiers JavaScript :', error);
+});

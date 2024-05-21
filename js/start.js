@@ -36,7 +36,6 @@ navigator.getBattery().then(function(battery) {
   const batteryImg = document.querySelector("#battery");
 
   function updateBatteryStatus() {
-    console.log(battery.level * 100);
     if (battery.charging) {
       batteryImg.src = "../src/svg/battery-bolt.svg";
       return;
