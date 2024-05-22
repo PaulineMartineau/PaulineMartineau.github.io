@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pauline M.</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css2.css">
     <script src="https://kit.fontawesome.com/a6ba4900c1.js" crossorigin="anonymous"></script>
-
+    <script src="dock.js" defer></script>
 </head>
 
 <body>
@@ -36,16 +36,6 @@
                 <div class="separation"></div>
                 <div id="lock-screen" onclick="lockScreen()" class="item">Vérouiller l'ecran</div>
                 <div onclick="window.location.reload()" class="item">Fermer la session Pauline</div>
-            </div>
-
-            <div class="batteryInfo">
-                <div class="level">
-                    <div>Batterie</div>
-                    <div class="percent">75%</div>
-                </div>
-                <div class="charge">
-                    Source d'alimentation
-                </div>
             </div>
 
             <div class="post-it">
@@ -110,34 +100,68 @@
                     </div>
                 </div>
 
+                <div class="superbar"></div>
                 <div class="docker-wrapper">
                     <div class="dock">
-                    <div class="appli">
-                        <div class="dock__icons btn-desktop permanent" data-app="finder">
-                            <img src="./src/png/finder.png" alt="finder">
-                            <span class="state"></span>
-                            <span class="tooltip">Finder</span>
+                        <div class="appli">
+                            <div class="dock__icons btn-desktop permanent" data-app="finder">
+                                
+                                <img src="./src/png/finder.png" alt="finder">
+                                <!-- <span class="state"></span> -->
+                                <span class="tooltip">Finder</span>
+                            </div>
+                            <div class="dock__icons btn-desktop permanent">
+                                
+                                <img src="./src/png/launchpad.png" alt="launchpad">
+                                <span class="state"></span>
+                                <span class="tooltip">Launchpad</span>
+                            </div>
+                            <div class="dock__icons btn-desktop permanent" data-app="terminal">
+                                
+                                <img src="./src/png/terminal.png" alt="terminal">
+                                <span class="state"></span>
+                                <span class="tooltip">Terminal</span>
+                            </div>
+                            <div class="dock__icons btn-desktop permanent" data-app="terminal">
+                                
+                                <img src="./src/png/terminal.png" alt="terminal">
+                                <span class="state"></span>
+                                <span class="tooltip">Terminal</span>
+                            </div>
+                            <div class="dock__icons btn-desktop permanent" data-app="terminal">
+                                
+                                <img src="./src/png/terminal.png" alt="terminal">
+                                <span class="state"></span>
+                                <span class="tooltip">Terminal</span>
+                            </div>
+                            <div class="dock__icons btn-desktop permanent" data-app="terminal">
+                                
+                                <img src="./src/png/terminal.png" alt="terminal">
+                                <span class="state"></span>
+                                <span class="tooltip">Terminal</span>
+                            </div>
+                            <div class="dock__icons btn-desktop permanent" data-app="terminal">
+                                
+                                <img src="./src/png/terminal.png" alt="terminal">
+                                <span class="state"></span>
+                                <span class="tooltip">Terminal</span>
+                            </div>
+                            <div class="dock__icons btn-desktop permanent" data-app="terminal">
+                                
+                                <img src="./src/png/terminal.png" alt="terminal">
+                                <span class="state"></span>
+                                <span class="tooltip">Terminal</span>
+                            </div>
                         </div>
-                        <div class="dock__icons btn-desktop permanent">
-                            <img src="./src/png/launchpad.png" alt="launchpad">
-                            <span class="state"></span>
-                            <span class="tooltip">Launchpad</span>
-                        </div>
-                        <div class="dock__icons btn-desktop permanent" data-app="terminal">
-                            <img src="./src/png/terminal.png" alt="terminal">
-                            <span class="state"></span>
-                            <span class="tooltip">Terminal</span>
-                        </div>
+                        <!-- <div class="trash">
+                            <div class="dock__icons btn-desktop permanent">
+                                <img src="./src/png/trash.png" alt="trash">
+                                <span class="state"></span>
+                                <span class="tooltip">Poubelle</span>
+                            </div>
+                        </div> -->
                     </div>
-                    <div class="trash">
-                        <div class="dock__icons separation"></div>
-                        <div class="dock__icons btn-desktop permanent">
-                            <img src="./src/png/trash.png" alt="trash">
-                            <span class="state"></span>
-                            <span class="tooltip">Poubelle</span>
-                        </div>
-                    </div>
-                    </div>
+
                 </div>
                 
             </div>
@@ -146,6 +170,8 @@
     </div>
 
     <script type='module' src="js/main.js"></script>
+
+
     
 </body>
 </html>

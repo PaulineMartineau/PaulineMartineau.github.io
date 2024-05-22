@@ -22,6 +22,7 @@ const filesToLoad = [
   './js/data/cardMemory.js',
   './js/data/pathSvgIcons.js',
   
+  './js/class/dockClass.js',
   './js/class/modalClass.js',
   './js/class/iconClass.js',
   './js/class/finderClass.js',

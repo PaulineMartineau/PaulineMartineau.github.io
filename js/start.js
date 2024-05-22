@@ -32,10 +32,18 @@ function updateDateTime() {
 
 updateDateTime();
 
+const battery = document.querySelector("#battery");
+const tooltipBattery = document.querySelector(".batteryInfo");
+const batteryPercent = tooltipBattery.querySelector('.percent');
+const batteryCharge = tooltipBattery.querySelector('.charge');
+
 navigator.getBattery().then(function(battery) {
   const batteryImg = document.querySelector("#battery");
 
   function updateBatteryStatus() {
+    batteryPercent.textContent = `${battery.level * 100}%`;
+    const msg = battery.charging ? "Source d'alimentation : adaptateur secteur" : "Source d'alimentation : batterie";
+    batteryCharge.textContent = msg;
     if (battery.charging) {
       batteryImg.src = "../src/svg/battery-bolt.svg";
       return;
@@ -71,6 +79,7 @@ const capsLockImage = document.querySelector(".caps-lock");
 const enter = document.querySelector(".enter");
 const postIt = document.querySelector(".post-it");
 const cancel = document.querySelector(".bottom");
+const docker = new Dock(document.querySelector(".dock"));
 
 //DEV MODE
 changeScreen()
@@ -147,27 +156,28 @@ icons.forEach((icon) => {
   });
 });
 
-//Gestion du menu principal
+//Gestion du menu carrot + infos batterie 
 const menu = document.querySelector(".menu");
 const carrot = document.querySelector("#carrot");
 
-carrot.addEventListener("mouseover", () => {
-  if (unlock.style.display == "flex") menu.style.display = "flex";
+const elements = [carrot, battery];
+const details = [menu, tooltipBattery];
+
+elements.forEach((element, index) => {
+  element.addEventListener("click", () => {
+    element.classList.toggle("active");
+    if (unlock.style.display == "flex") {
+      if (element.className.includes('active')) {
+        element.style.backgroundColor = " rgba(142, 128, 128, 0.8)";
+        details[index].style.display = "flex";
+      } else {
+        details[index].style.display = "none";
+        element.style.backgroundColor = "";
+      }
+    }
+  });
 });
 
-carrot.addEventListener("mouseout", () => {
-  if (unlock.style.display == "flex") {
-    menu.addEventListener("mouseover", () => {
-      carrot.style.backgroundColor = "rgb(142, 128, 128)";
-      menu.style.display = "flex";
-    });
-
-    menu.addEventListener("mouseout", () => {
-      carrot.style.backgroundColor = "";
-      menu.style.display = "none";
-    });
-  }
-});
 
 function lockScreen() {
   lock.style.display = "flex";

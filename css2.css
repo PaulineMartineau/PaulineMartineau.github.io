@@ -80,7 +80,7 @@ p {
 }
 
 .banner .barleft #carrot:hover {
-  background-color: rgba(142, 128, 128, 0.8);
+  background-color: rgb(142, 128, 128);
 }
 
 .banner .barright{
@@ -101,15 +101,6 @@ p {
 
 #battery{
 	width: 25px;
-  border-radius: 5px;
-  padding: 0px 5px;
-  margin: 0 35px;
-
-}
-
-#battery:hover{
-  background-color: rgba(142, 128, 128, 0.8);
-
 }
 
 /* Menu (system preference) */
@@ -117,7 +108,7 @@ p {
 .menu {
   position: fixed;
   z-index: 50;
-  background-color: rgba(142, 128, 128, 0.8);
+  background-color: rgb(142, 128, 128);
   border-radius: 5px;
   top: 35px;
   margin-left: 35px;
@@ -137,43 +128,11 @@ p {
   border-radius: 5px;
 }
 
-.menu .separation {
-  background-color: rgba(211, 215, 218, 0.5);
+.separation {
+  background-color: rgb(185, 187, 189);
   height: 1px;
-  width: 230px;
-  margin: 5px;
-  align-items: center;
+  margin: 2px;
 }
-
-/* Batterie more infos */
-.batteryInfo {
-  position: fixed;
-  z-index: 50;
-  background-color: rgba(142, 128, 128, 0.8);
-  backdrop-filter: blur(5px);
-  border-radius: 5px;
-  top: 35px;
-  right: 3px;
-  width: 245px;
-  display: none;
-  flex-direction: column;
-  padding: 0 5px;
-}
-
-.batteryInfo .level{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.batteryInfo .level .percent {
-  font-size: smaller;
-}
-
-.batteryInfo .charge {
-  font-size: smaller;
-}
-
 
 /* Dektop */
 
@@ -448,36 +407,44 @@ p {
 /* Icons du dock */
 
 .docker-wrapper{
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 1%;
-  display: flex;
-  justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1%;
+    display: flex;
+    justify-content: center;
 }
 
 .dock {
-  /* background-color: rgba(142, 128, 128, 0.5); */
-  background-color: rgba(218, 218, 218, 0.5);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  /* box-shadow:rgba(255, 255, 255, 0.17) 0px 0px 0px 1px inset; */
-  backdrop-filter: blur(10px);
-
+  /* position: fixed;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%); */
+  /* transform: translateX(50%); */
+  background-color: rgba(163, 146, 135, 0.9);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
-  align-items: center;
+  /* align-items: flex-end; */
+  /* padding: 0 15px; */
   z-index: 4 !important;
   display: none;
-  padding: 4px 8px 8px 8px;
-  display: flex;
+  padding: 10px;
+  /* gap: 20px; */
+
+  /* margin: auto auto 12px auto;
+  border-radius: 10px;
+  padding: 0 12px;
+  background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.15));
+  box-shadow:rgba(255, 255, 255, 0.17) 0px 0px 0px 1px inset; */
 }
 
 .dock.animated .dock__icons{
-  transition: 0.1s;
-  transition-property: transform, transform-origin;
+    transition: 0.1s;
+    transition-property: transform, transform-origin;
 }
 
 .dock__icons {
-  margin: 0 10px;
+  /* margin: 0 10px; */
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -485,52 +452,45 @@ p {
   align-items: center;
   justify-content: center;
   transform-origin: center bottom;
-  background: transparent;
-  position: relative;
+background: transparent;
+border: 1px solid black;
+
 }
 
 .dock__icons img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-
 }
 
-.dock__icons::before{
-  content: "";
-  width: 4px;
-  height: 4px;
-  background-color: transparent;
-  border-radius: 50%;
-  top: 105%;
-  position: absolute;
+.superbar{
+    width: 150px;
+    height: 12px;
+    background-color: red;
 }
 
-.dock__icons.active::before{
-  background-color: #fff;
-}
 
 .tooltip {
   display: none;
   position: absolute;
-  /* top: -95%; */
-  bottom: 95%;
+  top: -90%;
   left: 50%;
   transform: translateX(-50%);
   background-color: #333333b7;
   color: #fff;
   padding: 5px;
-  height: 25px;
   border-radius: 4px;
-  font-size: xx-small;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 60%, 66% 60%, 49% 75%, 33% 60%, 0% 60%);
-  box-shadow:rgba(255, 255, 255, 0.17) 0px 0px 0px 1px inset;
+  font-size: small;
 }
 
+/* .dock__icons:hover {
+  transform: scale(1.5) translateY(-30%);
+} */
 
-.dock__icons:hover .tooltip {
+
+/* .dock__icons:hover .tooltip {
   display: block;
-}
+} */
 
 .open {
   content: "";
@@ -559,12 +519,12 @@ p {
   justify-content: center;
 }
 
-.separation {
+.trash::before {
   content: "";
   width: 0.5px;
   height: 110%;
   background-color: #6b5757;
-  /* margin-right: 15px; */
+  margin-right: 15px;
 }
 
 /****************************************************************************
@@ -628,114 +588,28 @@ p {
   cursor: pointer;
 }
 
-.header .navigation{
-  gap: 10px;
-  padding: 0 15px;
-}
-
-.header .title{
-  margin-left: 20px;
-}
-
 .close,
 .reduce,
 .resize {
   cursor: pointer;
   border-radius: 50%;
+  margin-right: 10px;
   height: 12px;
   width: 12px;
 }
 
 .close {
-	background: #f25056;
-	position: relative;
-	overflow: hidden;
-}
-
-.close::before{
-	content: '';
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	transform: translate(-50%, -50%) rotate(-45deg);
-	width: 15%;
-	height: 50%;
-	opacity: 0;
-	background: #222;
-	transition: 300ms;
-}
-.close::after{
-	content: '';
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	transform: translate(-50%, -50%) rotate(45deg);
-	width: 15%;
-	opacity: 0;
-	height: 50%;
-	background: #222;
-	transition: 300ms;
+  background-color: red;
+  margin-left: 15px;
 }
 
 .reduce {
-  background-color: #fac536;
-  position: relative;
-	overflow: hidden;
-}
-
-.reduce::before{
-	content: '';
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 50%;
-	height: 10%;
-	opacity: 0;
-	background: #222;
-	transition: 300ms;
+  background-color: yellow;
 }
 
 .resize {
-	background: #39ea49;
-	position: relative;
-	overflow: hidden;
+  background-color: rgb(57, 203, 57);
 }
-
-.resize::before{
-	content: '';
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 45%;
-	height: 45%;
-	opacity: 0;
-	background: #222;
-	transition: 300ms;
-}
-.resize::after{
-	content: '';
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	transform: translate(-50%, -50%) rotate(-45deg);
-	width: 15%;
-	height: 80%;
-	opacity: 0;
-	background: #39ea49;
-	transition: 300ms;
-}
-
-.navigation.active .close::before,
-.navigation.active .close::after,
-.navigation.active .reduce::before,
-.navigation.active .resize::before,
-.navigation.active .resize::after {
-  opacity: 1;
-  top: 50%;
-}
-
 
 .modal-content {
   width: 100%;
@@ -957,6 +831,8 @@ p {
 	width: 60%;
 }
 
+
+
 .partFinder:after{
 	content: "𐁖";
 	width: 15px;
@@ -973,7 +849,6 @@ p {
   flex-direction: column;
   gap: 10px;
 }
-
 
 .elemFinder {
   display: flex;
@@ -1012,6 +887,7 @@ p {
 
 .iconView .elemFinder {
   flex-direction: column;
+  justify-content: center;
   flex: 0 0 150px;
   gap: 5px 0;
   margin-top: 0;

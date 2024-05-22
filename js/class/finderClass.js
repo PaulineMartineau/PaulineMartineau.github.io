@@ -175,12 +175,10 @@ class ElementFinder {
           );
           const activeIndex = Array.from(elements).indexOf(activeElement);
 
-          //   if (activeIndex == index) return;
           if (activeIndex == -1) element.classList.add("active");
           else {
             activeElement.classList.remove("active");
             element.classList.add("active");
-            //changer le nom du finder
           }
 
           this.list.id = "active";

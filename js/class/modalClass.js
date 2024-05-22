@@ -8,6 +8,9 @@ class Header {
     const headerDiv = document.createElement("div");
     headerDiv.classList.add("header");
 
+    const navigation = document.createElement("div");
+    navigation.classList.add("navigation");
+
     const closeSpan = document.createElement("span");
     closeSpan.classList.add("close");
 
@@ -21,13 +24,25 @@ class Header {
     titleH3.classList.add("title");
     titleH3.textContent = this.title;
 
-    headerDiv.appendChild(closeSpan);
-    headerDiv.appendChild(reduceSpan);
-    headerDiv.appendChild(resizeSpan);
+    navigation.appendChild(closeSpan);
+    navigation.appendChild(reduceSpan);
+    navigation.appendChild(resizeSpan);
+    headerDiv.appendChild(navigation);
     headerDiv.appendChild(titleH3);
+
+    managebutton(navigation);
 
     return headerDiv;
   }
+}
+
+function managebutton(navigation){
+  navigation.addEventListener("mouseover", () =>{
+    navigation.classList.add("active")
+  })
+  navigation.addEventListener("mouseout", () =>{
+    navigation.classList.remove("active")
+  })
 }
 
 class Modal {
@@ -47,7 +62,6 @@ class Modal {
     const modalContainerDiv = document.createElement("div");
     modalContainerDiv.classList.add("modal-container");
 
-    // Utilisez l'en-tête créé par la classe Header
     const header = new Header(this.title);
     const headerElement = header.headerElement;
 

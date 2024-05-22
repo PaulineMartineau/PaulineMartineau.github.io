@@ -10,3 +10,51 @@ https://icons8.com/icon/vvMrJV0Jd9UP/translate-app
 <a target="_blank" href="https://icons8.com/icon/57947/command">Command</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 <a target="_blank" href="https://icons8.com/icon/20406/bulleted-list">List</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 <a target="_blank" href="https://icons8.com/icon/74264/squared-menu">Grid</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+
+
+adjustDockWidth() {
+    let totalWidth = 0;
+    let translate;
+  
+    this.icons.forEach((icon, index) => {
+      const computedStyle = window.getComputedStyle(icon);
+      const transform = computedStyle.transform;
+  
+      // Default scale and translateX values
+      let scale = 1;
+      let translateX = 0;
+  
+      if (transform !== 'none') {
+        const matrix = transform.match(/matrix\((.+)\)/)[1].split(', ');
+  
+        // The matrix array has six values: scaleX, skewY, skewX, scaleY, translateX, translateY
+        scale = parseFloat(matrix[0]);  // scaleX
+        translateX = parseFloat(matrix[4]);  // translateX
+        if (index == 0) translate = translateX;
+      }
+    //   icon.style.setProperty("transform", `translateX(${scale}px)` )
+      const iconWidth = this.iconSize * scale;
+      totalWidth += iconWidth ;
+
+    });
+    console.log(translate)
+    this.root.style.setProperty("transform", `translateX(${translate * 2}px)`);
+  
+    // Ajuster la largeur du dock pour contenir toutes les icônes
+    this.root.style.width = `${totalWidth}px`;
+  
+    // Ajuster le dock pour qu'il soit entièrement visible
+    const parentWidth = this.root.parentElement.offsetWidth;
+    const dockWidth = this.root.offsetWidth;
+    const excessWidth = dockWidth - parentWidth;
+  
+    // if (excessWidth > 0) {
+    // } else {
+    //   this.root.style.removeProperty("transform");
+    // }
+  
+    // console.log('Total width of icons:', totalWidth);
+    // console.log('Dock width:', dockWidth);
+    // console.log('Parent width:', parentWidth);
+  }

@@ -230,11 +230,10 @@ const manage = {
     open(icon) {
       const modaleDom = getDomToCreateModale(icon);
 
-      if ( manage.modale.isMatch(modaleDom.appName) && manage.modale.getModale(modaleDom.appName)) {
+      if (icon.className.includes("active")) {
         modaleDom.modale = manage.modale.getModale(modaleDom.appName);
         manage.modale.reOpen(modaleDom.modale);
-      }
-	  else {
+      } else {
         const mod = new Modal(
           modaleDom.appName,
           modaleDom.title,
@@ -244,9 +243,11 @@ const manage = {
 
         const desktop = document.querySelector(".desktop");
         const modals = document.querySelectorAll(".modal");
-		putModal(modals, desktop, mod);
+        putModal(modals, desktop, mod);
 
         modaleDom.modale = mod.instance;
+        icon.classList.add("active");
+
       }
 
       const headerDom = getDomHeaderModale(modaleDom.modale, icon);
@@ -266,6 +267,7 @@ const manage = {
       modal.style.transform = "";
       modal.style.opacity = "1";
       modal.style.display = "block";
+      manageZindex(modal);
     },
     go(modaleDom) {
       switch (true) {
@@ -344,14 +346,13 @@ const manage = {
       );
       manage.modale.resize(headerDom.resize, modaleDom.modale);
       manage.modale.reduce(headerDom.reduce, icon, modaleDom.modale);
-      manage.modale.select(headerDom.select, modaleDom.appName);
     },
     close(closeButton, select, modale, icon) {
       closeButton.addEventListener("click", () => {
         modale.remove();
         mod = null;
         if (!icon.className.includes("permanent")) icon.remove();
-        else select.classList.remove("open");
+        else icon.classList.remove("active");
       });
     },
     resize(resizeButton, modale) {
@@ -375,24 +376,24 @@ const manage = {
         modale.classList.add("minimized");
       });
     },
-    select(select, appName) {
-      if (!select.className.includes("open")) {
-        if (manage.modale.isMatch(appName)) {
-          select.classList.add("open");
-        }
-      }
-    },
-    isMatch(appName) {
-      const elements = document.querySelectorAll(".btn-desktop, .dock__icons");
+    // select(select, appName) {
+    //   if (!select.className.includes("open")) {
+    //     if (manage.modale.isMatch(appName)) {
+    //       select.classList.add("open");
+    //     }
+    //   }
+    // },
+    // isMatch(appName) {
+    //   const elements = document.querySelectorAll(".btn-desktop, .dock__icons");
 
-      for (const element of elements) {
-        const dataApp = element.getAttribute("data-app");
-        if (dataApp === appName) {
-          return true;
-        }
-      }
-      return false;
-    },
+    //   for (const element of elements) {
+    //     const dataApp = element.getAttribute("data-app");
+    //     if (dataApp === appName) {
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // },
     getModale(appName) {
       const modales = document.querySelectorAll(".modal");
 
@@ -420,50 +421,46 @@ function manageZindex(modale) {
 }
 
 function willModalFit(container, lastPosition, lastSize) {
-	// Obtenir les dimensions de la div conteneur
-	const containerRect = container.getBoundingClientRect();
-  
-	// Obtenir les dimensions de la modale
-	// const modalRect = modal.getBoundingClientRect();
-	const modalWidth = lastSize[WIDTH];
-	const modalHeight = lastSize[HEIGHT];
+  const containerRect = container.getBoundingClientRect();
+  const modalWidth = lastSize[WIDTH];
+  const modalHeight = lastSize[HEIGHT];
+  const newTop = lastPosition[TOP] + 30;
+  const newLeft = lastPosition[LEFT] + 30;
 
-	const newTop = lastPosition[TOP] + 30;
-	const newLeft = lastPosition[LEFT] + 30;
-  
-	// Vérifier si la nouvelle position de la modale tient dans le conteneur
-	const fitsHorizontally = (newLeft >= containerRect.left) && ((newLeft + modalWidth) <= containerRect.right);
-	const fitsVertically = (newTop >= containerRect.top) && ((newTop + modalHeight) <= containerRect.bottom);
-  
-	return fitsHorizontally && fitsVertically;
+  const fitsHorizontally =
+    newLeft >= containerRect.left &&
+    newLeft + modalWidth <= containerRect.right;
+  const fitsVertically =
+    newTop >= containerRect.top && newTop + modalHeight <= containerRect.bottom;
+
+  return fitsHorizontally && fitsVertically;
+}
+
+function putModal(modals, desktop, mod) {
+  lastPosition = [];
+  lastSize = [];
+
+  modals.forEach((modal) => {
+    const rect = modal.getBoundingClientRect();
+    const zIndex = window.getComputedStyle(modal).getPropertyValue("z-index");
+    if (zIndex == 3) {
+      lastPosition[TOP] = rect.top;
+      lastPosition[LEFT] = rect.left;
+      lastSize[WIDTH] = rect.width;
+      lastSize[HEIGHT] = rect.height;
+    }
+    modal.style.zIndex = 2;
+  });
+  mod.instance.style.zIndex = 3;
+
+  if (modals.length > 0) {
+    if (willModalFit(desktop, lastPosition, lastSize)) {
+      mod.instance.style.top = lastPosition[TOP] + 30 + `px`;
+      mod.instance.style.left = lastPosition[LEFT] + 30 + `px`;
+    } else {
+      mod.instance.style.top = 40 + `px`;
+      mod.instance.style.left = 20 + `px`;
+    }
   }
-
-  function putModal(modals, desktop, mod){
-        lastPosition = [];
-        lastSize = [];
-
-        modals.forEach((modal) => {
-          const rect = modal.getBoundingClientRect();
-          const zIndex = window.getComputedStyle(modal).getPropertyValue("z-index");
-          if (zIndex == 3) {
-            lastPosition[TOP] = rect.top;
-            lastPosition[LEFT] = rect.left;
-            lastSize[WIDTH] = rect.width;
-            lastSize[HEIGHT] = rect.height;
-          }
-          modal.style.zIndex = 2;
-        });
-        mod.instance.style.zIndex = 3;
-        
-		if (modals.length > 0){
-			if (willModalFit(desktop, lastPosition, lastSize)){
-				mod.instance.style.top = lastPosition[TOP] + 30 + `px`;
-				mod.instance.style.left = lastPosition[LEFT] + 30 + `px`;
-			}
-			else{
-				mod.instance.style.top =  40 + `px`;
-				mod.instance.style.left =  20 + `px`;
-			}
-		}
-        desktop.appendChild(mod.instance);
-	}
+  desktop.appendChild(mod.instance);
+}

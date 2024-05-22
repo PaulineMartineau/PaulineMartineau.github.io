@@ -19,7 +19,7 @@ function getDomHeaderModale(modale, icon){
         close: modale.querySelector(".close"),
         resize: modale.querySelector(".resize"),
         reduce: modale.querySelector(".reduce"),
-        select: icon.querySelector('.state'),
+        select: icon.className.includes("active"),
     }
 }
 
