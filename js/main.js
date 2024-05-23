@@ -32,6 +32,7 @@ const filesToLoad = [
   './js/manage/dom.js',
   './js/manage/utilsIconDock.js',
   './js/manage/utilsTerminal.js',
+  './js/manage/utilsResizeModale.js',
 
   './js/start.js',
 ];

@@ -257,7 +257,8 @@ const manage = {
       modaleDom.modale.style.display = "block";
 
       manage.modale.go(modaleDom);
-      manage.modale.dragModale(modaleDom.modale);
+      // manage.modale.dragModale(modaleDom.modale);
+      manage.modale.resizeManual(modaleDom.modale);
       manage.modale.header(modaleDom, headerDom, icon);
       manage.modale.zIndex(modaleDom.modale);
     },
@@ -337,6 +338,10 @@ const manage = {
         isDragging = false;
       });
     },
+    resizeManual(modale){
+      console.log(modale);
+      manageResizeManual(modale);
+    },
     header(modaleDom, headerDom, icon) {
       manage.modale.close(
         headerDom.close,
@@ -344,7 +349,7 @@ const manage = {
         modaleDom.modale,
         icon
       );
-      manage.modale.resize(headerDom.resize, modaleDom.modale);
+      manage.modale.resizeAuto(headerDom.resize, modaleDom.modale);
       manage.modale.reduce(headerDom.reduce, icon, modaleDom.modale);
     },
     close(closeButton, select, modale, icon) {
@@ -355,7 +360,7 @@ const manage = {
         else icon.classList.remove("active");
       });
     },
-    resize(resizeButton, modale) {
+    resizeAuto(resizeButton, modale) {
       resizeButton.addEventListener("click", () => {
         const isLittle = resizeButton.className.includes("little");
         modale.style.width = isLittle ? "80%" : "50%";

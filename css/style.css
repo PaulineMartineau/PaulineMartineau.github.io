@@ -579,7 +579,7 @@ p {
 
 .modal {
   display: none;
-  position: fixed;
+  position: absolute;
   top: 8%;
   left: 10%;
   width: 80%;
@@ -625,7 +625,6 @@ p {
   border-top-right-radius: 5px;
   display: flex;
   align-items: center;
-  cursor: pointer;
 }
 
 .header .navigation{
@@ -1292,3 +1291,16 @@ p {
 /****************************************************************************
  * FIN Preference system
  ***************************************************************************/
+
+
+ .wip{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+ .wipcontent{
+  width: 90%;
+ }

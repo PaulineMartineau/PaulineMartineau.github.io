@@ -89,6 +89,9 @@ class Modal {
       case this.appName == "finder":
         appDiv = openFinder("Bureau");
         break;
+      case this.appName == "launchpad":
+          appDiv = wip();
+          break;
       case this.appName == "Préférences Système":
         appDiv = openSystem("pref");
         break;
@@ -269,4 +272,18 @@ function openSystem(type) {
   const systemDiv = new PreferenceSystem(type);
 
   return systemDiv.instance;
+}
+
+
+function wip() {
+  const wipdiv = document.createElement("div");
+  wipdiv.classList.add("wip");
+
+  const wipContent = document.createElement("div");
+  wipContent.classList.add("wip-content");
+  wipContent.innerHTML = "Work in progress"
+  wipContent.innerHTML += '<iframe src="https://giphy.com/embed/d8d7kW0JUCUDwHpDsk" width="100%" height="100%"  frameBorder="0"></iframe>'
+      
+  wipdiv.appendChild(wipContent);
+  return wipdiv;
 }
