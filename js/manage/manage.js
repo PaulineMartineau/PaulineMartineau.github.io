@@ -247,18 +247,13 @@ const manage = {
 
         modaleDom.modale = mod.instance;
         icon.classList.add("active");
-
       }
-
       const headerDom = getDomHeaderModale(modaleDom.modale, icon);
 
       if (modaleDom.modale.style.display == "block") return;
 
       modaleDom.modale.style.display = "block";
-
       manage.modale.go(modaleDom);
-      // manage.modale.dragModale(modaleDom.modale);
-      manage.modale.resizeManual(modaleDom.modale);
       manage.modale.header(modaleDom, headerDom, icon);
       manage.modale.zIndex(modaleDom.modale);
     },
@@ -300,7 +295,10 @@ const manage = {
           const appName = bouton.getAttribute("data-app");
           const id = bouton.getAttribute("id");
           const icon = getIcon(appName, id);
-          manage.modale.open(icon);
+          setTimeout(() => {
+            manage.modale.open(icon);
+        }, 2000);
+          
         });
       });
       prefSystem.forEach((bouton) => {
@@ -339,7 +337,6 @@ const manage = {
       });
     },
     resizeManual(modale){
-      console.log(modale);
       manageResizeManual(modale);
     },
     header(modaleDom, headerDom, icon) {
@@ -381,24 +378,6 @@ const manage = {
         modale.classList.add("minimized");
       });
     },
-    // select(select, appName) {
-    //   if (!select.className.includes("open")) {
-    //     if (manage.modale.isMatch(appName)) {
-    //       select.classList.add("open");
-    //     }
-    //   }
-    // },
-    // isMatch(appName) {
-    //   const elements = document.querySelectorAll(".btn-desktop, .dock__icons");
-
-    //   for (const element of elements) {
-    //     const dataApp = element.getAttribute("data-app");
-    //     if (dataApp === appName) {
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // },
     getModale(appName) {
       const modales = document.querySelectorAll(".modal");
 

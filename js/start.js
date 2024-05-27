@@ -82,12 +82,12 @@ const cancel = document.querySelector(".bottom");
 const docker = new Dock(document.querySelector(".dock"));
 
 //DEV MODE
-changeScreen()
-const finderPage = document.querySelector("[data-app='finder']");
-const appName = finderPage.getAttribute('data-app');
-const id = finderPage.getAttribute('id');
-const icon = getIcon(appName,id);
-manage.modale.open(icon);
+// changeScreen()
+// const finderPage = document.querySelector("[data-app='finder']");
+// const appName = finderPage.getAttribute('data-app');
+// const id = finderPage.getAttribute('id');
+// const icon = getIcon(appName,id);
+// manage.modale.open(icon);
 //DEV MODE
 
 function changeScreen() {

@@ -16,9 +16,21 @@ p {
   padding: 0;
 }
 
-/* body{
-	user-select: auto;
-} */
+
+::-webkit-scrollbar {
+  width: 12px; /* Réduit la largeur de la barre de défilement */
+  height: 12px; /* Réduit la hauteur de la barre de défilement horizontale */
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(142, 128, 128, 0.9);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(185, 187, 189);
+
+  border-radius: 10px; /* Coins arrondis de la poignée */
+}
 
 /****************************************************************************
  * FIN GENERAL CSS
@@ -567,6 +579,21 @@ p {
   /* margin-right: 15px; */
 }
 
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce {
+  animation: bounce 2s ease;
+}
 /****************************************************************************
  * FIN ICONS
  ***************************************************************************/
@@ -924,6 +951,7 @@ p {
   width: 100%;
   flex: 1;
   flex-direction: column;
+  overflow-y: hidden;
 }
 
 .headerFinder {
@@ -941,36 +969,66 @@ p {
   flex: 1;
   display: flex;
   overflow-x: auto;
+  flex-direction: column;
+}
+
+.containerFinder{
+  width: 100%;
+  height: calc(100% - 25px);
+  display: flex;
+  /* background-color: red; */
+  overflow-y: hidden;
 }
 
 .partFinder {
   height: 100%;
   display: flex;
   align-items: start;
-  flex-wrap: wrap;
   position: relative;
   overflow-x: hidden;
+  overflow-y: scroll;
+
+}
+
+.bottomBar{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(142, 128, 128, 0.7);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .partFinder:nth-child(1){
 	width: 60%;
 }
 
-.partFinder:after{
+/* .partFinder:after{
 	content: "𐁖";
 	width: 15px;
 	height: 100%;
-	background-color: rgb(182, 181, 181);
+  background-color: rgb(142, 128, 128);
+
 	right: 0;
 	position: absolute;
 	display: flex;
 	flex-direction: column-reverse;
-	cursor: pointer;
-}
+	cursor: col-resize;
+} */
 
 .partFinder.listView {
   flex-direction: column;
   gap: 10px;
+
+}
+
+.partFinder.iconView{
+  flex-wrap: wrap;
+
 }
 
 
@@ -978,8 +1036,11 @@ p {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 10px;
+  padding: 5px 15px;
+  flex: 25px 0 25px;
   margin-top: 10px;
+  /* margin: 10px 10px; */
+  text-overflow: ellipsis;
 }
 
 .elemFinder.active{
@@ -989,7 +1050,7 @@ p {
 }
 
 .listView .elemFinder {
-  padding-left: 15px;
+  /* padding-left: 15px; */
   position: relative;
   width:90%;
 }
@@ -1019,6 +1080,12 @@ p {
 }
 
 .iconView .elemFinder div {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.listView .elemFinder div {
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 100%;
@@ -1304,3 +1371,8 @@ p {
  .wipcontent{
   width: 90%;
  }
+
+
+
+
+ content: "𐁖";

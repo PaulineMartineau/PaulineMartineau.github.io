@@ -36,13 +36,13 @@ class Header {
   }
 }
 
-function managebutton(navigation){
-  navigation.addEventListener("mouseover", () =>{
-    navigation.classList.add("active")
-  })
-  navigation.addEventListener("mouseout", () =>{
-    navigation.classList.remove("active")
-  })
+function managebutton(navigation) {
+  navigation.addEventListener("mouseover", () => {
+    navigation.classList.add("active");
+  });
+  navigation.addEventListener("mouseout", () => {
+    navigation.classList.remove("active");
+  });
 }
 
 class Modal {
@@ -51,8 +51,31 @@ class Modal {
     this.title = title;
     this.content = content;
     this.id = id;
+    this.clicked = null;
+    this.onRightEdge = false;
+    this.onBottomEdge = false;
+    this.onLeftEdge = false;
+    this.onTopEdge = false;
+    this.rightScreenEdge = false;
+    this.bottomScreenEdge = false;
+    this.b = null;
+    this.x = null;
+    this.y = null;
+    this.evt = null;
+    this.redraw = false;
     this.instance = this.createModalElement();
     this.instance.setAttribute("data-app", this.appName);
+
+    // Bind methods to the instance
+    this.calc = this.calc.bind(this);
+    this.runListener = this.runListener.bind(this);
+    this.canMove = this.canMove.bind(this);
+    this.onMove = this.onMove.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onUp = this.onUp.bind(this);
+    this.resize = this.resize.bind(this);
+
+    this.manageResizeManual(this.instance);
   }
 
   createModalElement() {
@@ -90,8 +113,8 @@ class Modal {
         appDiv = openFinder("Bureau");
         break;
       case this.appName == "launchpad":
-          appDiv = wip();
-          break;
+        appDiv = wip();
+        break;
       case this.appName == "Préférences Système":
         appDiv = openSystem("pref");
         break;
@@ -108,8 +131,126 @@ class Modal {
     modalContainerDiv.appendChild(modalContentDiv);
 
     modalDiv.appendChild(modalContainerDiv);
-    // addListener();
     return modalDiv;
+  }
+
+  calc(event) {
+    this.b = this.instance.getBoundingClientRect();
+    this.x = event.clientX - this.b.left;
+    this.y = event.clientY - this.b.top;
+
+    const MARGINS = 10;
+    this.onTopEdge = Math.abs(this.y) < MARGINS;
+    this.onLeftEdge = Math.abs(this.x) < MARGINS;
+    this.onRightEdge = this.x >= this.b.width - MARGINS && this.x < this.b.width + MARGINS;
+    this.onBottomEdge = Math.abs(this.y) >= this.b.height - MARGINS;
+
+    this.rightScreenEdge = window.innerWidth - MARGINS;
+    this.bottomScreenEdge = window.innerHeight - MARGINS;
+    return;
+  }
+
+  runListener() {
+    this.instance.addEventListener("mousedown", this.onMouseDown);
+    document.addEventListener("mousemove", this.onMove);
+    document.addEventListener("mouseup", this.onUp);
+  }
+
+  canMove() {
+    return this.x > 0 && this.x < this.b.width && this.y > 0 && this.y < this.b.height && this.y < 30;
+  }
+
+  onMove(e) {
+    this.calc(e);
+    this.evt = e;
+    this.redraw = true;
+    requestAnimationFrame(this.resize);
+  }
+
+  onMouseDown(e) {
+    this.calc(e);
+    var isResizing = this.onRightEdge || this.onBottomEdge || this.onTopEdge || this.onLeftEdge;
+
+    this.clicked = {
+      x: this.x,
+      y: this.y,
+      cx: e.clientX,
+      cy: e.clientY,
+      w: this.b.width,
+      h: this.b.height,
+      isResizing: isResizing,
+      isMoving: !isResizing && this.canMove(),
+      onTopEdge: this.onTopEdge,
+      onLeftEdge: this.onLeftEdge,
+      onRightEdge: this.onRightEdge,
+      onBottomEdge: this.onBottomEdge,
+    };
+    e.preventDefault();
+  }
+
+  onUp(e) {
+    this.calc(e);
+    if (this.b.y > window.innerHeight - 30 && this.b.y < 35) {
+      this.instance.style.top = window.innerHeight - 30 + 'px';
+    }
+    this.clicked = null;
+  }
+
+  resize() {
+    if (!this.redraw) return;
+    this.redraw = false;
+
+    const minWidth = 420;
+    const minHeight = 210;
+
+    if (this.clicked && this.clicked.isResizing) {
+      if (this.clicked.onRightEdge) this.instance.style.width = Math.max(this.x, minWidth) + 'px';
+      if (this.clicked.onBottomEdge) this.instance.style.height = Math.max(this.y, minHeight) + 'px';
+
+      if (this.clicked.onLeftEdge) {
+        var currentWidth = Math.max(this.clicked.cx - this.evt.clientX + this.clicked.w, minWidth);
+        if (currentWidth > minWidth) {
+          this.instance.style.width = currentWidth + 'px';
+          this.instance.style.left = this.evt.clientX + 'px';
+        }
+      }
+
+      if (this.clicked.onTopEdge) {
+        var currentHeight = Math.max(this.clicked.cy - this.evt.clientY + this.clicked.h, minHeight);
+        if (currentHeight > minHeight) {
+          this.instance.style.height = currentHeight + 'px';
+          this.instance.style.top = this.evt.clientY + 'px';
+        }
+      }
+      return;
+    }
+
+    if (this.clicked && this.clicked.isMoving) {
+      if (this.evt.clientY - this.clicked.y >= 35)
+        this.instance.style.top = (this.evt.clientY - this.clicked.y) + 'px';
+      else
+        this.instance.style.top = "35px";
+
+      this.instance.style.left = (this.evt.clientX - this.clicked.x) + 'px';
+      return;
+    }
+
+    if (this.onRightEdge && this.onBottomEdge || this.onLeftEdge && this.onTopEdge) {
+      this.instance.style.cursor = 'nwse-resize';
+    } else if (this.onRightEdge && this.onTopEdge || this.onBottomEdge && this.onLeftEdge) {
+      this.instance.style.cursor = 'nesw-resize';
+    } else if (this.onRightEdge || this.onLeftEdge) {
+      this.instance.style.cursor = 'ew-resize';
+    } else if (this.onBottomEdge || this.onTopEdge) {
+      this.instance.style.cursor = 'ns-resize';
+    } else {
+      this.instance.style.cursor = 'default';
+    }
+  }
+
+  manageResizeManual() {
+    this.runListener();
+    requestAnimationFrame(this.resize);
   }
 }
 
@@ -264,7 +405,6 @@ function openTxt(src) {
 function openFinder(name) {
   const finderDiv = new Finder(name);
 
-
   return finderDiv.instance;
 }
 
@@ -274,16 +414,16 @@ function openSystem(type) {
   return systemDiv.instance;
 }
 
-
 function wip() {
   const wipdiv = document.createElement("div");
   wipdiv.classList.add("wip");
 
   const wipContent = document.createElement("div");
   wipContent.classList.add("wip-content");
-  wipContent.innerHTML = "Work in progress"
-  wipContent.innerHTML += '<iframe src="https://giphy.com/embed/d8d7kW0JUCUDwHpDsk" width="100%" height="100%"  frameBorder="0"></iframe>'
-      
+  wipContent.innerHTML = "Work in progress";
+  wipContent.innerHTML +=
+    '<iframe src="https://giphy.com/embed/d8d7kW0JUCUDwHpDsk" width="100%" height="100%"  frameBorder="0"></iframe>';
+
   wipdiv.appendChild(wipContent);
   return wipdiv;
 }

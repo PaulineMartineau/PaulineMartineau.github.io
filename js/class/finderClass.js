@@ -102,8 +102,9 @@ class HeaderFinder {
 }
 
 class PartFinder {
-  constructor(name, finder, contentDiv) {
+  constructor(name, finder, contentDiv, bottomBar) {
     this.name = name;
+    this.bottomBar = bottomBar;
     this.instance = this.createPartFinder(finder, contentDiv);
   }
 
@@ -120,7 +121,15 @@ class PartFinder {
     partDivLeft.style.width = "40%";
 
     initializeResize(partDivLeft);
-    new ElementFinder(this.name, partDivLeft, finder, contentDiv);
+    new ElementFinder(
+      this.name,
+      partDivLeft,
+      finder,
+      contentDiv,
+      this.bottomBar
+    );
+
+    const nbElem = partDivLeft.querySelectorAll(".elemFinder").length;
 
     partDivLeft.addEventListener("mousedown", (event) => {
       if (
@@ -141,6 +150,9 @@ class PartFinder {
           element.classList.remove("active");
         });
 
+        this.bottomBar.textContent =
+          nbElem > 1 ? `${nbElem} elements` : `${nbElem} element`;
+
         updateHeaderName(finder);
       }
     });
@@ -150,15 +162,16 @@ class PartFinder {
 }
 
 class ElementFinder {
-  constructor(name, partFinder, finder, contentDiv) {
+  constructor(name, partFinder, finder, contentDiv, bottomBar) {
     this.name = name;
     this.list = partFinder;
+    this.bottomBar = bottomBar;
     this.racine = name == "Bureau" ? computer : computer.elements[0];
-    this.finderContent = contentDiv;
-    this.instance = this.createListView(finder);
+    this.finderContent = contentDiv.querySelector(".containerFinder");
+    this.instance = this.createListView(finder, contentDiv);
   }
 
-  createListView(finder) {
+  createListView(finder, contentDiv) {
     this.racine.elements.forEach((element) => {
       if (element.type === "directory" && element.name == this.name) {
         element.elements?.forEach((file) => {
@@ -168,6 +181,10 @@ class ElementFinder {
       }
 
       const elements = this.list.querySelectorAll(".elemFinder");
+      const nbElem = elements.length;
+      this.bottomBar.textContent =
+        nbElem > 1 ? `${nbElem} elements` : `${nbElem} element`;
+
       elements.forEach((element, index) => {
         element.addEventListener("click", () => {
           const activeElement = Array.from(elements).find((element) =>
@@ -196,7 +213,8 @@ class ElementFinder {
           const newPart = new PartFinder(
             element.dataset.app,
             finder,
-            this.finderContent
+            contentDiv,
+            this.bottomBar
           );
           this.finderContent.appendChild(newPart.instance);
 
@@ -215,6 +233,7 @@ class ElementFinder {
 
             newPart.instance.appendChild(preview);
             updateHeaderName(finder);
+            this.bottomBar.textContent = `1 sur ${nbElem} sélectionné`;
           } else headerInstance.setDirectoryName(element.dataset.app);
         });
       });
@@ -242,8 +261,21 @@ class Finder {
     contentDiv.style.height = "100%";
     finder.appendChild(contentDiv);
 
-    const partFinder = new PartFinder(this.appName, finder, contentDiv);
-    contentDiv.appendChild(partFinder.instance);
+    const containerFinder = document.createElement("div");
+    containerFinder.classList.add("containerFinder");
+    contentDiv.appendChild(containerFinder);
+
+    const bottomBar = document.createElement("div");
+    bottomBar.classList.add("bottomBar");
+    contentDiv.appendChild(bottomBar);
+
+    const partFinder = new PartFinder(
+      this.appName,
+      finder,
+      contentDiv,
+      bottomBar
+    );
+    containerFinder.appendChild(partFinder.instance);
 
     return finder;
   }
@@ -251,28 +283,28 @@ class Finder {
 
 function initializeResize(partFinder) {
   let isResizing = false;
-  let startX = 0;
-  let startWidth = 0;
 
   partFinder.addEventListener("mousedown", (event) => {
-    const computedStyle = window.getComputedStyle(partFinder, "::after");
-    const afterWidth = parseInt(computedStyle.width);
-    const afterRight = parseInt(computedStyle.right);
-    const parentWidth = partFinder.clientWidth;
-    const clickX = event.clientX - partFinder.getBoundingClientRect().left;
-
-    if (clickX >= parentWidth - afterWidth - afterRight) {
+    const rect = partFinder.getBoundingClientRect();
+    if (event.clientX >= rect.right - 20 && event.clientX <= rect.right - 12) {
       isResizing = true;
-      startX = event.clientX;
-      startWidth = parseFloat(getComputedStyle(partFinder).width);
       partFinder.classList.add("resizing");
       document.body.style.userSelect = "none";
     }
   });
 
   window.addEventListener("mousemove", (event) => {
-    if (isResizing) {
-      const newWidth = startWidth + (event.clientX - startX);
+    const rect = partFinder.getBoundingClientRect();
+
+
+    // console.log( event.clientX <= rect.right)
+    if (event.clientX >= rect.right - 20 && event.clientX <= rect.right - 12 && !partFinder.classList.contains("resizing")) {
+      partFinder.style.cursor = "col-resize";
+    } else {
+      partFinder.style.cursor = "";
+    }
+    if (partFinder.classList.contains("resizing")) {
+      const newWidth = event.clientX - partFinder.getBoundingClientRect().left;
       if (newWidth >= 100) partFinder.style.width = `${newWidth}px`;
     }
   });

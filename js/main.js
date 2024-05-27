@@ -27,13 +27,12 @@ const filesToLoad = [
   './js/class/iconClass.js',
   './js/class/finderClass.js',
   './js/class/systemClass.js',
-  
+
   './js/manage/manage.js',
   './js/manage/dom.js',
   './js/manage/utilsIconDock.js',
   './js/manage/utilsTerminal.js',
-  './js/manage/utilsResizeModale.js',
-
+  
   './js/start.js',
 ];
 
